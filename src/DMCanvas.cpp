@@ -61,7 +61,7 @@ DMCanvas::DMCanvas(int screenNumber, DMMainWindow *parent)
 
 	this->init_slots();
 	
-	this->show();
+	this->hide();
 	this->move(geo.topLeft());
 
 #ifdef __linux

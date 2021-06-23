@@ -72,6 +72,7 @@ int main(int argc, char *argv[])
 		desktop, &QDesktopWidget::screenCountChanged,
 		dmMainWindow, &DMMainWindow::reset_canvases
 	);
+	app.setQuitOnLastWindowClosed(false);
 	return app.exec();
 }
 

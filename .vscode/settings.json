@@ -1,0 +1,9 @@
+{
+    "files.associations": {
+        "map": "cpp",
+        "cmath": "cpp",
+        "qwidget": "cpp",
+        "qlabel": "cpp",
+        "condition_variable": "cpp"
+    }
+}
