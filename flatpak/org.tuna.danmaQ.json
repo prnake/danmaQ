@@ -1,6 +1,8 @@
 {
     "id": "org.tuna.danmaQ",
     "runtime": "org.kde.Platform",
+    "base": "io.qt.qtwebengine.BaseApp",
+    "base-version": "5.15",
     "runtime-version": "5.15",
     "sdk": "org.kde.Sdk",
     "command": "danmaQ",
@@ -11,7 +13,6 @@
                      "--socket=x11",
                      "--socket=pulseaudio",
                      "--filesystem=home",
-                     "--env=QT_QPA_PLATFORM=flatpak",
                      "--device=dri" ],
     "modules": [
         {
