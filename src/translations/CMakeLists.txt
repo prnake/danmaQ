@@ -7,6 +7,7 @@ find_package(Qt5LinguistTools)
 
 add_custom_target(update_all_ts_files ALL)
 add_custom_target(create_all_qm_files ALL)
+add_dependencies(create_all_qm_files update_all_ts_files)
 
 set(danmaQ_I18N_FILES)
 foreach(I18N_SRC ${danmaQ_I18N_SRC})
@@ -24,4 +25,4 @@ foreach(I18N_SRC ${danmaQ_I18N_SRC})
     add_dependencies(create_all_qm_files ${QM_TARGET_NAME})
     list(APPEND danmaQ_I18N_FILES ${QM_FILE})
 endforeach()
-add_custom_target(translations ALL DEPENDS update_all_ts_files create_all_qm_files ${danmaQ_I18N_FILES})
+add_custom_target(translations ALL DEPENDS create_all_qm_files ${danmaQ_I18N_FILES})

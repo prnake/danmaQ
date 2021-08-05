@@ -1,7 +1,7 @@
 {
     "id": "org.tuna.danmaQ",
     "runtime": "org.kde.Platform",
-    "runtime-version": "5.9",
+    "runtime-version": "5.15",
     "sdk": "org.kde.Sdk",
     "command": "danmaQ",
     "rename-desktop-file": "danmaQ.desktop",
@@ -18,8 +18,8 @@
             "name": "danmaQ",
             "buildsystem": "simple",
              "build-commands": [
-                "mkdir build",
-                "cd build && cmake .. -DCMAKE_INSTALL_PREFIX=/app -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=Release",
+                "cmake . && make translations",
+                "cmake -B build -DCMAKE_INSTALL_PREFIX=/app -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=Release",
                 "cd build && make"
             ],
             "post-install": [

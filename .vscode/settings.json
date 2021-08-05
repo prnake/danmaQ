@@ -84,6 +84,7 @@
         "source_location": "cpp",
         "iomanip": "cpp",
         "stop_token": "cpp",
-        "cinttypes": "cpp"
+        "cinttypes": "cpp",
+        "**/translations/*.ts": "xml"
     }
 }
