@@ -29,6 +29,7 @@ endif()
 find_package(Qt5Core)
 find_package(Qt5Widgets)
 find_package(Qt5Network)
+find_package(Qt5WebEngineWidgets)
 
 IF (UNIX)
         set(CMAKE_CXX_FLAGS "-Wall ${CMAKE_CXX_FLAGS}")
@@ -63,6 +64,7 @@ if (APPLE)
             COMMAND cp src/${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}.app/Contents/MacOS/
             COMMAND sed -i.bak 's/VERSION/${VERSION}/g' ${CMAKE_PROJECT_NAME}.app/Contents/Info.plist
             COMMAND mkdir -p ${CMAKE_PROJECT_NAME}.app/Contents/Resources
+            COMMAND touch ${CMAKE_PROJECT_NAME}.app/Contents/Resources/empty.lproj
             COMMAND cp Icon.icns ${CMAKE_PROJECT_NAME}.app/Contents/Resources/
             COMMAND /usr/local/opt/qt5/bin/macdeployqt ${CMAKE_PROJECT_NAME}.app -no-strip
             DEPENDS ${CMAKE_BINARY_DIR}/src/${CMAKE_PROJECT_NAME}

@@ -4,58 +4,71 @@
 <context>
     <name>DMMainWindow</name>
     <message>
-        <location filename="../DMMainWindow.cpp" line="44"/>
+        <location filename="../DMMainWindow.cpp" line="47"/>
         <source>Server: </source>
         <translation>地址： </translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="50"/>
         <source>Channel: </source>
-        <translation>频道： </translation>
+        <translation type="vanished">频道： </translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="56"/>
         <source>Password: </source>
-        <translation>密码： </translation>
+        <translation type="vanished">密码： </translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="63"/>
-        <source>&amp;Hide</source>
+        <location filename="../DMMainWindow.cpp" line="54"/>
+        <source>Hide</source>
         <translation>隐藏(&amp;H)</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="64"/>
         <source>&amp;Config</source>
-        <translation>配置(&amp;C)</translation>
+        <translation type="vanished">配置(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="66"/>
-        <location filename="../DMMainWindow.cpp" line="175"/>
-        <source>&amp;Subscribe</source>
+        <location filename="../DMMainWindow.cpp" line="55"/>
+        <location filename="../DMMainWindow.cpp" line="196"/>
+        <source>Subscribe</source>
         <translation>订阅(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="168"/>
-        <source>&amp;Unsubscribe</source>
-        <translation>停止(&amp;U)</translation>
+        <location filename="../DMMainWindow.cpp" line="158"/>
+        <source>Screen configuration</source>
+        <translation>屏幕设置</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="169"/>
+        <location filename="../DMMainWindow.cpp" line="139"/>
+        <location filename="../DMMainWindow.cpp" line="166"/>
+        <source>Screen</source>
+        <translation>屏幕</translation>
+    </message>
+    <message>
+        <location filename="../DMMainWindow.cpp" line="171"/>
+        <source>Submit</source>
+        <translation>确认</translation>
+    </message>
+    <message>
+        <location filename="../DMMainWindow.cpp" line="189"/>
+        <source>Unsubscribe</source>
+        <translation>停止</translation>
+    </message>
+    <message>
+        <location filename="../DMMainWindow.cpp" line="190"/>
         <source>Subscription Started</source>
         <translation>订阅开始</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="169"/>
+        <location filename="../DMMainWindow.cpp" line="190"/>
         <source>Let&apos;s Go</source>
         <translation>快发条弹幕试试吧</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="180"/>
+        <location filename="../DMMainWindow.cpp" line="201"/>
         <source>Ooops!</source>
         <translation>哎呀！</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="192"/>
+        <location filename="../DMMainWindow.cpp" line="210"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
@@ -63,29 +76,47 @@
 <context>
     <name>DMTrayIcon</name>
     <message>
-        <location filename="../DMMainWindow.cpp" line="215"/>
-        <source>Toggle Subscription</source>
-        <translation>切换订阅状态</translation>
+        <location filename="../DMMainWindow.cpp" line="233"/>
+        <source>Settings</source>
+        <translation>设置</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="216"/>
+        <location filename="../DMMainWindow.cpp" line="235"/>
+        <source>Refresh Subscription</source>
+        <translation>刷新订阅</translation>
+    </message>
+    <message>
+        <location filename="../DMMainWindow.cpp" line="236"/>
         <source>Refresh Screen</source>
         <translation>刷新屏幕</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="217"/>
+        <location filename="../DMMainWindow.cpp" line="234"/>
         <source>Show Main Window</source>
         <translation>显示主窗口</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="218"/>
+        <location filename="../DMMainWindow.cpp" line="237"/>
         <source>About</source>
         <translation>关于</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="219"/>
+        <location filename="../DMMainWindow.cpp" line="238"/>
         <source>Exit</source>
         <translation>退出</translation>
+    </message>
+</context>
+<context>
+    <name>Subscriber</name>
+    <message>
+        <location filename="../Subscriber.cpp" line="82"/>
+        <source>Server connected</source>
+        <translation>服务已连接</translation>
+    </message>
+    <message>
+        <location filename="../Subscriber.cpp" line="87"/>
+        <source>Server disconnected</source>
+        <translation>连接中断</translation>
     </message>
 </context>
 </TS>

@@ -18,6 +18,7 @@
 #ifndef DMMAINWINDOW_HPP
 #define DMMAINWINDOW_HPP
 #include <QApplication>
+#include <QMessageBox>
 #include <QWidget>
 #include <QVector>
 #include <QLineEdit>
@@ -60,8 +61,8 @@ public:
 	QString fontFamily;
 	float speedScale;
 
-	QLineEdit *server, *channel, *passwd;
-	QPushButton *configBtn, *hideBtn, *mainBtn;
+	QLineEdit *server;
+	QPushButton *hideBtn, *mainBtn;
 	
 
 public slots:
@@ -77,7 +78,9 @@ signals:
 
 private:
 	QApplication* app;
-	QVector<QWidget*>	dm_canvases;
+	QVector<QWidget*> dm_canvases;
+	QVector<QCheckBox *> screenBoxes;
+	QWidget *screenWidget;
 	Subscriber *subscriber;
 	DMTrayIcon *trayIcon;
 	void init_canvases();
@@ -86,3 +89,4 @@ private:
 };
 
 #endif
+
