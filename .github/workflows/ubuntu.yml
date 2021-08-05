@@ -18,12 +18,13 @@ jobs:
         qt_arch: [gcc_64]
     steps:
       - name: Install Qt
-        uses: jurplel/install-qt-action@v2.13.0
+        uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_ver }}
+          modules: 'qtcharts qtwebengine'
           cached: 'false'
       - name: ubuntu install GL library
-        run: sudo apt-get install -y qtwebengine5-dev libqt5x11extras5-dev cmake
+        run: sudo apt-get install -y libqt5x11extras5-dev cmake
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
