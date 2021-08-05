@@ -35,7 +35,7 @@ class DMTrayIcon: public QSystemTrayIcon
 
 public:
 	DMTrayIcon(QWidget *parent=0);
-	QAction *toggleAction, *showAction, *aboutAction, *exitAction,
+	QAction *showAction, *aboutAction, *exitAction,
 			*refreshScreenAction;
 
 

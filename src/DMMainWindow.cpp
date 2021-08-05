@@ -27,7 +27,6 @@
 #include <QMessageBox>
 #include <QSystemTrayIcon>
 #include <QMenu>
-#include <QMenuBar>
 #include <QAction>
 #include <QCheckBox>
 
@@ -73,7 +72,6 @@ DMMainWindow::DMMainWindow(QApplication *app) {
 
 	connect(this->mainBtn, &QPushButton::released, this, &DMMainWindow::toggle_subscription);
 	connect(this->hideBtn, &QPushButton::released, this, &DMMainWindow::hide);
-	connect(this->trayIcon->toggleAction, &QAction::triggered, this, &DMMainWindow::toggle_subscription);
 	connect(this->trayIcon->refreshScreenAction, &QAction::triggered, this, &DMMainWindow::reset_canvases);
 	connect(this->trayIcon->showAction, &QAction::triggered, this, &DMMainWindow::show);
 	connect(this->trayIcon->aboutAction, &QAction::triggered, this, &DMMainWindow::show_about_dialog);
@@ -109,13 +107,12 @@ void DMMainWindow::toggle_subscription() {
 			this, &DMMainWindow::on_new_alert
 		);
 		this->subscriber->start();
-
+		this->reset_canvases();
 	} else {
 		this->subscriber->finish();
 		emit stop_subscription();
         this->subscriber = nullptr;
 	}
-	this->reset_canvases();
 }
 
 void DMMainWindow::init_canvases() {
@@ -229,10 +226,8 @@ DMTrayIcon::DMTrayIcon(QWidget *parent)
 	this->icon_stopped = QIcon(":icon_inactive.png");
 	this->setIcon(this->icon_stopped);
 
-	QMenuBar *menuBar = new QMenuBar(parent);
-	QMenu *menu = menuBar->addMenu(tr("Settings"));
+	QMenu *menu = new QMenu(tr("Settings"));
 	this->showAction = menu->addAction(tr("Show Main Window"));
-	this->toggleAction = menu->addAction(tr("Refresh Subscription"));
 	this->refreshScreenAction = menu->addAction(tr("Refresh Screen"));
 	this->aboutAction = menu->addAction(tr("About"));
 	this->exitAction = menu->addAction(tr("Exit"));
