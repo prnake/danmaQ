@@ -1,0 +1,50 @@
+name: Ubuntu
+# Qt官方没有linux平台的x86包
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+env:
+  targetName: danmaQ
+jobs:
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        qt_ver: [5.15.2]
+        qt_arch: [gcc_64]
+    steps:
+      - name: Install Qt
+        uses: jurplel/install-qt-action@v2
+        with:
+          version: ${{ matrix.qt_ver }}
+          modules: 'qtcharts qtwebengine'
+          cached: 'false'
+      - name: ubuntu install GL library
+        run: sudo apt-get install -y libqt5x11extras5-dev cmake
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: build ubuntu
+        run: |
+          cmake . && make translations
+          cmake -B build -DCMAKE_INSTALL_PREFIX=/app -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=Release
+          cd build && make
+    # 上传artifacts          
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Linux
+          path: build
+      # tag 上传Release
+      - name: uploadRelease
+        if: startsWith(github.event.ref, 'refs/tags/')
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: build/src/${{ env.targetName }}
+          asset_name: ${{ env.targetName }}
+          tag: ${{ github.ref }}
+          overwrite: true
