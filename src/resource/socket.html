@@ -24,7 +24,7 @@
             });
             socket.on("danmaku", (data) => {
                const color = parseInt(data.color) || 0;
-               const postion = parseInt(data.type) || 1;
+               const postion = parseInt(data.mode) || 1;
                context.show(data.text, color, postion);
             });
          });
