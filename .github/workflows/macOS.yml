@@ -27,13 +27,14 @@ jobs:
           fetch-depth: 1
       - name: build macos
         run: |
-          cmake .
-          make
+          cmake . && make translations
+          cmake -B build -DCMAKE_INSTALL_PREFIX=/app -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=Release
+          cd build && make dmg
       # 上传artifacts          
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}.zip
-          path: ${{ env.targetName }}.app
+          name: ${{ env.targetName }}_${{ matrix.os }}_${{matrix.qt_ver}}.dmg
+          path: build/${{ env.targetName }}.dmg
       # tag 上传Release
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
