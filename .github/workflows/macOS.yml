@@ -17,9 +17,10 @@ jobs:
       targetName: danmaQ
     steps:
       - name: Install Qt
-        uses: jurplel/install-qt-action@v2.13.0
+        uses: jurplel/install-qt-action@v2
         with:
           version: ${{ matrix.qt_ver }}
+          modules: 'qtwebengine'
           cached: 'false'
       - uses: actions/checkout@v2
         with:
