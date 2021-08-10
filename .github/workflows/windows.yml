@@ -36,7 +36,7 @@ jobs:
         with:
           fetch-depth: 1
       # msvc编译
-      - name: msvc-build
+      - name: MSVC Build
         id: build
         shell: cmd
         run: |
@@ -50,7 +50,7 @@ jobs:
           echo vcToolsRedistDir=%VCToolsRedistDir% >> %GITHUB_ENV%
       - uses: actions/upload-artifact@v2
         with:
-          name: ${{ env.targetName }}.win.${{ matrix.qt_arch }}
+          name: ${{ env.targetName }}.win.${{ matrix.msvc_arch }}
           path: src\Debug
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
