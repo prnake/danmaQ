@@ -1,6 +1,5 @@
 name: Windows
 on: 
-  on:
   push:
     branches:
       - master
@@ -33,12 +32,9 @@ jobs:
         # 使用外部action。这个action专门用来安装Qt
         uses: jurplel/install-qt-action@v2.13.0
         with:
-          # Version of Qt to install
           version: ${{ matrix.qt_ver }}
-          # Target platform for build
-          # target: ${{ matrix.qt_target }}
+          modules: 'qtwebengine'
           arch: ${{ matrix.qt_arch }}
-          cached: 'false'
       # 拉取代码
       - uses: actions/checkout@v2
         with:
@@ -59,21 +55,18 @@ jobs:
       - name: package
         id: package      
         env:
-          archiveName: ${{ matrix.qt_ver }}-${{ matrix.qt_target }}-${{ matrix.qt_arch }}
+          archiveName: ${{ env.targetName }}.win.${{ matrix.qt_arch }}
           msvcArch: ${{ matrix.msvc_arch }}          
         shell: pwsh
         run: |
           & scripts\windows-publish.ps1 ${env:archiveName} ${env:targetName}
           # 记录packageName给后续step
            $name = ${env:archiveName}
-           echo "::set-output name=packageName::$name"       
-      # tag 查询github-Release
-      # 上传artifacts          
+           echo "::set-output name=packageName::$name"
       - uses: actions/upload-artifact@v2
         with:
           name: ${{ steps.package.outputs.packageName }}
           path: ${{ steps.package.outputs.packageName }}.zip
-      # tag 上传Release
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
