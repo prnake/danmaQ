@@ -32,17 +32,18 @@
 
 #include "common.hpp"
 
-DMMainWindow::DMMainWindow(QApplication *app) {
+DMMainWindow::DMMainWindow(QApplication *app)
+{
 
-    this->app = app;
+	this->app = app;
 
-    this->setWindowTitle("DanmaQ");
+	this->setWindowTitle("DanmaQ");
 	this->setWindowIcon(QIcon(":icon_active.png"));
 	this->trayIcon = new DMTrayIcon(this);
-	
-	QVBoxLayout* layout = new QVBoxLayout(this);
 
-	QHBoxLayout* hbox = new QHBoxLayout(this);
+	QVBoxLayout *layout = new QVBoxLayout(this);
+
+	QHBoxLayout *hbox = new QHBoxLayout(this);
 	hbox->addWidget(new QLabel(tr("Server: "), this));
 	this->server = new QLineEdit("danmaQ://", this);
 	this->server->setMinimumWidth(200);
@@ -55,72 +56,71 @@ DMMainWindow::DMMainWindow(QApplication *app) {
 	hbox->addWidget(this->hideBtn);
 	hbox->addWidget(this->mainBtn);
 	layout->addLayout(hbox);
-	
+
 	this->setLayout(layout);
 
-	this->fontSize = 36;
+	this->fontSize = 30;
 	this->lineHeight = this->fontSize * 1.2;
 	this->fontFamily = QString(
-        "WenQuanYi Micro Hei, Source Han Sans CN, Source Han Sans, WenQuanYi Zen Hei,"
+		"WenQuanYi Micro Hei, Source Han Sans CN, Source Han Sans, WenQuanYi Zen Hei,"
 		"Microsoft YaHei, SimHei, "
 		"STHeiti, Hiragino Sans GB, "
-		"sans-serif"
-	);
+		"sans-serif");
 	this->speedScale = 1.0;
-	
-    this->subscriber = nullptr;
 
 	connect(this->mainBtn, &QPushButton::released, this, &DMMainWindow::toggle_subscription);
 	connect(this->hideBtn, &QPushButton::released, this, &DMMainWindow::hide);
 	connect(this->trayIcon->refreshScreenAction, &QAction::triggered, this, &DMMainWindow::reset_canvases);
 	connect(this->trayIcon->showAction, &QAction::triggered, this, &DMMainWindow::show);
 	connect(this->trayIcon->aboutAction, &QAction::triggered, this, &DMMainWindow::show_about_dialog);
-    connect(this->trayIcon->exitAction, &QAction::triggered, this->app, &QApplication::quit);
+	connect(this->trayIcon->exitAction, &QAction::triggered, this->app, &QApplication::quit);
 
 	auto primaryScreen = QGuiApplication::primaryScreen();
 	auto center = primaryScreen->geometry().center();
-	this->move(center.x() - this->width()/2, center.y() - this->height()/2);
+	this->move(center.x() - this->width() / 2, center.y() - this->height() / 2);
 	this->show();
 }
 
-void DMMainWindow::toggle_subscription() {
+void DMMainWindow::toggle_subscription()
+{
 	if (this->subscriber == nullptr)
 	{
 		myDebug << "new Subscriber";
 		this->subscriber = new Subscriber(server->text(), this);
-		for(auto w=this->dm_canvases.begin(); w != this->dm_canvases.end(); ++w) {
+		for (auto w = this->dm_canvases.begin(); w != this->dm_canvases.end(); ++w)
+		{
 			connect(
 				this->subscriber, &Subscriber::new_danmaku,
-				qobject_cast<DMCanvas*>(*w), &DMCanvas::new_danmaku
-			);
+				qobject_cast<DMCanvas *>(*w), &DMCanvas::new_danmaku);
 		}
 		connect(
 			this->subscriber, &Subscriber::started,
-			this, &DMMainWindow::on_subscription_started
-		);
+			this, &DMMainWindow::on_subscription_started);
 		connect(
 			this->subscriber, &Subscriber::finished,
-			this, &DMMainWindow::on_subscription_stopped
-		);
+			this, &DMMainWindow::on_subscription_stopped);
 		connect(
 			this->subscriber, &Subscriber::new_alert,
-			this, &DMMainWindow::on_new_alert
-		);
+			this, &DMMainWindow::on_new_alert);
 		this->subscriber->start();
 		this->reset_canvases();
-	} else {
+	}
+	else
+	{
 		this->subscriber->finish();
 		emit stop_subscription();
-        this->subscriber = nullptr;
+		this->subscriber = nullptr;
 	}
 }
 
-void DMMainWindow::init_canvases() {
+void DMMainWindow::init_canvases()
+{
 	this->screenWidget->hide();
 	auto screens = QApplication::screens();
 	for (int i = 0; i < screens.size(); i++)
 	{
-		if (this->screenBoxes[i]->checkState()){
+		if (this->screenBoxes[i]->checkState())
+		{
 			auto screen = screens[i];
 			DMCanvas *canvas = new DMCanvas(screen, this);
 			this->dm_canvases.append(canvas);
@@ -138,7 +138,8 @@ void DMMainWindow::init_canvases() {
 	}
 }
 
-void DMMainWindow::reset_canvases() {
+void DMMainWindow::reset_canvases()
+{
 	myDebug << "Resetting canvases";
 
 	for (auto w = this->dm_canvases.begin(); w != this->dm_canvases.end(); ++w)
@@ -148,7 +149,10 @@ void DMMainWindow::reset_canvases() {
 	this->dm_canvases.clear();
 
 	if (screenWidget != nullptr)
+	{
 		delete this->screenWidget;
+		this->screenWidget = nullptr;
+	}
 	this->screenBoxes.clear();
 
 	this->screenWidget = new QWidget;
@@ -179,7 +183,8 @@ void DMMainWindow::reset_canvases() {
 	screenWidget->setFocus();
 }
 
-void DMMainWindow::on_subscription_started() {
+void DMMainWindow::on_subscription_started()
+{
 	myDebug << "Subscription Started";
 	this->hide();
 	this->trayIcon->set_icon_running();
@@ -187,25 +192,28 @@ void DMMainWindow::on_subscription_started() {
 	this->trayIcon->showMessage(tr("Subscription Started"), tr("Let's Go"));
 }
 
-void DMMainWindow::on_subscription_stopped() {
+void DMMainWindow::on_subscription_stopped()
+{
 	myDebug << "Subscription Stopped";
 	this->trayIcon->set_icon_stopped();
 	this->mainBtn->setText(tr("Subscribe"));
 }
 
-void DMMainWindow::on_new_alert(QString msg) {
+void DMMainWindow::on_new_alert(QString msg)
+{
 	myDebug << "Alert:" << msg;
 	this->trayIcon->showMessage(tr("Ooops!"), msg, QSystemTrayIcon::Critical);
 	this->subscriber->finish();
 	emit stop_subscription();
-    this->subscriber = nullptr;
+	this->subscriber = nullptr;
 }
 
-void DMMainWindow::show_about_dialog() {
+void DMMainWindow::show_about_dialog()
+{
 	this->show();
 	QMessageBox::about(
-        this, tr("About"),
-                R"(
+		this, tr("About"),
+		R"(
                 <strong>DanmaQ</strong>
                 <p>Version )" DANMAQ_VERSION R"( </p>
                 <p>Copyright &copy; 2015-2021 Justin Wong & TUNA members<br />
@@ -214,13 +222,11 @@ void DMMainWindow::show_about_dialog() {
                 <a href='https://github.com/tuna/danmaQ'>
                 https://github.com/tuna/danmaQ
                 </a></p>
-                )"
-	);
+                )");
 }
 
-
 DMTrayIcon::DMTrayIcon(QWidget *parent)
-	:QSystemTrayIcon(parent)
+	: QSystemTrayIcon(parent)
 {
 	this->icon_running = QIcon(":icon_active.png");
 	this->icon_stopped = QIcon(":icon_inactive.png");
@@ -236,29 +242,36 @@ DMTrayIcon::DMTrayIcon(QWidget *parent)
 
 	connect(
 		this, &DMTrayIcon::activated,
-		this, &DMTrayIcon::on_activated
-	);
+		this, &DMTrayIcon::on_activated);
 	this->show();
 }
 
-void DMTrayIcon::on_activated(QSystemTrayIcon::ActivationReason e) {
-	if(e == this->Trigger){
-        auto *parent = qobject_cast<QWidget*>(this->parent());
-        if(parent == nullptr) {
+void DMTrayIcon::on_activated(QSystemTrayIcon::ActivationReason e)
+{
+	if (e == this->Trigger)
+	{
+		auto *parent = qobject_cast<QWidget *>(this->parent());
+		if (parent == nullptr)
+		{
 			return;
 		}
-		if(parent->isVisible()) {
+		if (parent->isVisible())
+		{
 			parent->hide();
-		} else {
+		}
+		else
+		{
 			parent->show();
 		}
 	}
 }
 
-void DMTrayIcon::set_icon_running() {
+void DMTrayIcon::set_icon_running()
+{
 	this->setIcon(this->icon_running);
 }
 
-void DMTrayIcon::set_icon_stopped() {
+void DMTrayIcon::set_icon_stopped()
+{
 	this->setIcon(this->icon_stopped);
 }
