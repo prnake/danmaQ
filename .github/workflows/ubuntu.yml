@@ -26,11 +26,10 @@ jobs:
       - name: build flatpak
         run: |
           sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-          sudo flatpak install flathub org.kde.Sdk//5.15
-          sudo flatpak install flathub io.qt.qtwebengine.BaseApp//5.15
+          sudo flatpak install flathub org.kde.Sdk//5.15 io.qt.qtwebengine.BaseApp//5.15 -y
           sudo flatpak-builder --repo=repo --force-clean build-dir org.tuna.danmaQ.local.json
           sudo flatpak build-bundle repo danmaQ.flatpak org.tuna.danmaQ
-        working-directory: flatpak         
+        working-directory: flatpak
       - uses: actions/upload-artifact@v2
         with:
           name: Linux
