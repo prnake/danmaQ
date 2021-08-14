@@ -1,5 +1,4 @@
 name: Ubuntu
-# Qt官方没有linux平台的x86包
 on:
   push:
     branches:
@@ -23,28 +22,30 @@ jobs:
           version: ${{ matrix.qt_ver }}
           modules: 'qtcharts qtwebengine'
           cached: 'false'
-      - name: ubuntu install GL library
-        run: sudo apt-get install -y libqt5x11extras5-dev cmake
+      - name: ubuntu install
+        run: sudo apt-get install -y libqt5x11extras5-dev cmake flatpak flatpak-builder
       - uses: actions/checkout@v2
         with:
           fetch-depth: 1
-      - name: build ubuntu
+      - name: build flatpak
         run: |
-          cmake . && make translations
-          cmake -B build -DCMAKE_INSTALL_PREFIX=/app -DCMAKE_VERBOSE_MAKEFILE=ON -DCMAKE_BUILD_TYPE=Release
-          cd build && make
+          flatpak install flathub org.kde.Sdk//5.15
+          flatpak install flathub io.qt.qtwebengine.BaseApp//5.15
+          flatpak-builder --repo=repo --force-clean build-dir org.tuna.danmaQ.local.json
+          flatpak build-bundle repo danmaQ.flatpak org.tuna.danmaQ
+        working-directory: flatpak
     # 上传artifacts          
       - uses: actions/upload-artifact@v2
         with:
           name: Linux
-          path: build
+          path: flatpak/danmaQ.flatpak
       # tag 上传Release
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
-          file: build/src/${{ env.targetName }}
+          file: flatpak/danmaQ.flatpak
           asset_name: ${{ env.targetName }}
           tag: ${{ github.ref }}
           overwrite: true
