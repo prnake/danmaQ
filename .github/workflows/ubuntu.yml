@@ -30,13 +30,11 @@ jobs:
           flatpak install flathub io.qt.qtwebengine.BaseApp//5.15
           flatpak-builder --repo=repo --force-clean build-dir org.tuna.danmaQ.local.json
           flatpak build-bundle repo danmaQ.flatpak org.tuna.danmaQ
-        working-directory: flatpak
-    # 上传artifacts          
+        working-directory: flatpak         
       - uses: actions/upload-artifact@v2
         with:
           name: Linux
           path: flatpak/danmaQ.flatpak
-      # tag 上传Release
       - name: uploadRelease
         if: startsWith(github.event.ref, 'refs/tags/')
         uses: svenstaro/upload-release-action@v2

@@ -1,15 +1,11 @@
 name: MacOS
-on:
-  push:
-    branches:
-      - master
-  pull_request:
+on: [push,pull_request]
+env:
+  targetName: danmaQ
 jobs:
   build:
     name: Build
     runs-on: macos-10.15
-    env:
-      targetName: danmaQ
     steps:
       - name: Install Qt
         uses: jurplel/install-qt-action@v2
