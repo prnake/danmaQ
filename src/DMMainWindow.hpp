@@ -58,7 +58,7 @@ public:
 	QString fontFamily;
 	float speedScale;
 
-	QLineEdit *server;
+	QLineEdit *server, *channel, *name, *password;
 	QPushButton *hideBtn, *mainBtn;
 
 public slots:

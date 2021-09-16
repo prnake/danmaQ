@@ -4,20 +4,27 @@
 <context>
     <name>DMMainWindow</name>
     <message>
-        <location filename="../DMMainWindow.cpp" line="46"/>
+        <location filename="../DMMainWindow.cpp" line="47"/>
         <source>Server: </source>
         <translation>サーバー： </translation>
     </message>
     <message>
+        <location filename="../DMMainWindow.cpp" line="54"/>
         <source>Channel: </source>
-        <translation type="vanished">チャンネル：</translation>
+        <translation>チャンネル：</translation>
     </message>
     <message>
+        <location filename="../DMMainWindow.cpp" line="61"/>
+        <source>Name: </source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message>
+        <location filename="../DMMainWindow.cpp" line="68"/>
         <source>Password: </source>
-        <translation type="vanished">パスワード：</translation>
+        <translation>パスワード：</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="53"/>
+        <location filename="../DMMainWindow.cpp" line="75"/>
         <source>Hide</source>
         <translation>隠す(&amp;H)</translation>
     </message>
@@ -26,49 +33,49 @@
         <translation type="vanished">設定(&amp;C)</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="54"/>
-        <location filename="../DMMainWindow.cpp" line="193"/>
+        <location filename="../DMMainWindow.cpp" line="76"/>
+        <location filename="../DMMainWindow.cpp" line="220"/>
         <source>Subscribe</source>
         <translation>登録する(&amp;S)</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="155"/>
+        <location filename="../DMMainWindow.cpp" line="180"/>
         <source>Screen configuration</source>
         <translation>スクリーン設定</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="136"/>
-        <location filename="../DMMainWindow.cpp" line="163"/>
+        <location filename="../DMMainWindow.cpp" line="157"/>
+        <location filename="../DMMainWindow.cpp" line="188"/>
         <source>Screen</source>
         <translation>スクリーン</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="168"/>
+        <location filename="../DMMainWindow.cpp" line="193"/>
         <source>Submit</source>
         <translation>確認</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="186"/>
+        <location filename="../DMMainWindow.cpp" line="212"/>
         <source>Unsubscribe</source>
         <translation>登録をやめる(&amp;U)</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="187"/>
+        <location filename="../DMMainWindow.cpp" line="213"/>
         <source>Subscription Started</source>
         <translation>登録済み</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="187"/>
+        <location filename="../DMMainWindow.cpp" line="213"/>
         <source>Let&apos;s Go</source>
         <translation>コメントしてみよう</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="198"/>
+        <location filename="../DMMainWindow.cpp" line="226"/>
         <source>Ooops!</source>
         <translation>おっと！</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="207"/>
+        <location filename="../DMMainWindow.cpp" line="236"/>
         <source>About</source>
         <translation>danmaQ について</translation>
     </message>
@@ -76,7 +83,7 @@
 <context>
     <name>DMTrayIcon</name>
     <message>
-        <location filename="../DMMainWindow.cpp" line="229"/>
+        <location filename="../DMMainWindow.cpp" line="256"/>
         <source>Settings</source>
         <translation>設定</translation>
     </message>
@@ -85,22 +92,22 @@
         <translation type="vanished">リフレッシュ登録</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="231"/>
+        <location filename="../DMMainWindow.cpp" line="258"/>
         <source>Refresh Screen</source>
         <translation>画面を更新</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="230"/>
+        <location filename="../DMMainWindow.cpp" line="257"/>
         <source>Show Main Window</source>
         <translation>主画面を表示</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="232"/>
+        <location filename="../DMMainWindow.cpp" line="259"/>
         <source>About</source>
         <translation>danmaQ について</translation>
     </message>
     <message>
-        <location filename="../DMMainWindow.cpp" line="233"/>
+        <location filename="../DMMainWindow.cpp" line="260"/>
         <source>Exit</source>
         <translation>終了</translation>
     </message>

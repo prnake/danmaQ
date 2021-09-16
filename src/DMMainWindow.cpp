@@ -45,9 +45,30 @@ DMMainWindow::DMMainWindow(QApplication *app)
 
 	QHBoxLayout *hbox = new QHBoxLayout(this);
 	hbox->addWidget(new QLabel(tr("Server: "), this));
-	this->server = new QLineEdit("danmaQ://", this);
+	this->server = new QLineEdit("https://dm.tuna.moe:8443", this);
 	this->server->setMinimumWidth(200);
 	hbox->addWidget(this->server);
+	layout->addLayout(hbox);
+
+	hbox = new QHBoxLayout(this);
+	hbox->addWidget(new QLabel(tr("Channel: "), this));
+	this->channel = new QLineEdit("Chat", this);
+	this->channel->setMinimumWidth(200);
+	hbox->addWidget(this->channel);
+	layout->addLayout(hbox);
+
+	hbox = new QHBoxLayout(this);
+	hbox->addWidget(new QLabel(tr("Name: "), this));
+	this->name = new QLineEdit("screen", this);
+	this->name->setMinimumWidth(200);
+	hbox->addWidget(this->name);
+	layout->addLayout(hbox);
+
+	hbox = new QHBoxLayout(this);
+	hbox->addWidget(new QLabel(tr("Password: "), this));
+	this->password = new QLineEdit("", this);
+	this->password->setMinimumWidth(200);
+	hbox->addWidget(this->password);
 	layout->addLayout(hbox);
 
 	hbox = new QHBoxLayout(this);
@@ -86,7 +107,7 @@ void DMMainWindow::toggle_subscription()
 	if (this->subscriber == nullptr)
 	{
 		myDebug << "new Subscriber";
-		this->subscriber = new Subscriber(server->text(), this);
+		this->subscriber = new Subscriber(server->text()%"\""%channel->text()%"\""%name->text()%"\""%password->text(), this);
 		for (auto w = this->dm_canvases.begin(); w != this->dm_canvases.end(); ++w)
 		{
 			connect(

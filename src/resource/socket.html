@@ -10,12 +10,8 @@
       function danmaku(channel) {
          const context = channel.objects.context;
          context.get_server((server)=>{
-            if(server.startsWith("danmaQ://")){
-               server = server.substr(9);
-            }
-            server = atob(server);
-            server = JSON.parse(server);
-            const socket = io(server.host, { reconnect: true, query: server.query });
+            const query = server.split('"');
+            const socket = io(query[0].endsWith('/')?query[0]+"danmaku":query[0]+"/danmaku", { reconnect: true, query: { activity:query[1],tokenName:query[2],token:query[3] } });
             socket.on('connect', (socket) => {
                context.connected();
             });
